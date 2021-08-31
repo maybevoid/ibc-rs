@@ -73,6 +73,11 @@ impl QueryUnreceivedAcknowledgementCmd {
             // extract the sequences
             .map(|(packet_state, _)| packet_state.into_iter().map(|v| v.sequence).collect())?;
 
+        debug!(
+            "Query packet acknowledgments on chain {} returned: {:?}",
+            self.chain_id, sequences
+        );
+
         let request = QueryUnreceivedAcksRequest {
             port_id: self.port_id.to_string(),
             channel_id: self.channel_id.to_string(),
